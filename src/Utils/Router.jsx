@@ -10,8 +10,10 @@ import AuthProvider from "../Firebase/AuthProvider";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PrivateRoute from "./PrivateRoute";
-import FoodModal from "../Components/FoodModal";
+
 import SingleCardDetails from "../Components/SingleCardDetails";
+import UpdateFood from "../Components/UpdateFood";
+import RequestModal from "../Components/RequestModal";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +29,7 @@ const router = createBrowserRouter([
         path: "availableFood",
         element: <AvailableFood />,
         loader:()=> fetch("http://localhost:3000/food"),
-        // children:[
-        //   {
-        //     path:"/food/:id",
-        //     element:<SingleCardDetails/>
-        //   }
-        // ]
+       
       },
       {
         path: "addFood",
@@ -44,7 +41,9 @@ const router = createBrowserRouter([
       },
       {
         path: "myFoodRequest",
-        element:<PrivateRoute> <MyFoodRequest />,</PrivateRoute>
+        element:<PrivateRoute> <MyFoodRequest />,</PrivateRoute>,
+        
+        
       },
       {
         path:"login",
@@ -57,6 +56,16 @@ const router = createBrowserRouter([
       {
         path:"food/:id",
         element:<PrivateRoute><SingleCardDetails/></PrivateRoute>
+        , 
+      },
+      {
+        path:"updateFood/:id",
+        element:<UpdateFood/>,
+        loader: ({params})=> fetch(`http://localhost:3000/food/${params.id}`)
+      },
+      {
+        path:"requestModal",
+        element:<RequestModal/>
       }
     ],
   },

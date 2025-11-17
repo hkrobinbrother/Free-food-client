@@ -9,6 +9,8 @@ import {
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import auth from "./Firebase.config";
+import { Swal } from "sweetalert2/dist/sweetalert2";
+
 export const authContext = createContext();
 const AuthProvider = ({ routes }) => {
   const googleProvider = new GoogleAuthProvider();
@@ -36,7 +38,17 @@ const AuthProvider = ({ routes }) => {
 
   // google
   const handleGoogleLogin = () => {
-    signInWithPopup(auth, googleProvider);
+    signInWithPopup(auth, googleProvider)
+    .then((res)=>{
+      console.log(res)
+      Swal.fire("Login Successfully")
+    })
+    .catch(err=>{
+      console.log(err)
+      Swal.fire(err?.message)
+        
+    })
+
   };
 
   // authInfo
@@ -56,6 +68,7 @@ const AuthProvider = ({ routes }) => {
         console.log(currentUser)
         if(currentUser){
             setUser(currentUser)
+            
         }else{
             setUser(null)
         }

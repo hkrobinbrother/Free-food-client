@@ -1,11 +1,16 @@
 import React, { useContext, useState } from "react";
 import { authContext } from "../Firebase/AuthProvider";
-import { NavLink } from "react-router";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { NavLink, useLocation, useNavigate } from "react-router";
+import Swal, { swal } from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
 const Login = () => {
-  const { handleGoogleLogin, handleLogin, handleLogOut } =
+  const location = useLocation()
+  const navigate = useNavigate()
+  const from = location?.state?.from?.pathname || "/"
+  console.log(from)
+ 
+  const { handleGoogleLogin, handleLogin, handleLogOut,user } =
     useContext(authContext);
     const [error,setError] = useState("")
 
@@ -16,17 +21,26 @@ const Login = () => {
     const password = e.target.password.value;
 
     console.log(email, password);
-
+    console.log(user)
     handleLogin(email, password)
-    .then(res=>{})
+    .then(res=>{
+      console.log(res)
+      navigate(from )
+      
+      Swal.fire("Login Successfully")
+    })
     .catch(err=>{
+      console.log(err)
+      Swal.fire(err?.message)
         setError(err.message)
     })
-  };
-  const loginPopup = ()=>{
-    Swal.fire("login successful");
-  }
 
+  };
+  // const loginPopup = ()=>{
+  //   Swal.fire("login successful");
+  // }
+
+  
   return (
     <div>
       {/* <button onClick={handleGoogleLogin}>Google Login</button>
@@ -56,7 +70,7 @@ const Login = () => {
                   placeholder="Password"
                 />
 
-                <button onClick={loginPopup} className="btn btn-neutral mt-4">Login</button>
+                <button  className="btn btn-neutral mt-4">Login</button>
               </fieldset>
               <div className="flex flex-col">
                 <button

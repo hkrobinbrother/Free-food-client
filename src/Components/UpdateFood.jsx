@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
-
-import Swap from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import Swal from "sweetalert2";
-import { data, useNavigate } from "react-router";
+import { data, useLoaderData, useNavigate } from "react-router";
+import { Swal } from "sweetalert2/dist/sweetalert2";
 import { authContext } from "../Firebase/AuthProvider";
 
-const AddFood = () => {
+const UpdateFood = () => {
+  const updateFood = useLoaderData();
+  const {_id, foodName, image, notes, location, date, foodQuantity } = updateFood;
+
   const { user } = useContext(authContext);
   const navigate = useNavigate();
 
-  const handleAddFood = (e) => {
+  const handleUpdateFood = (e) => {
     e.preventDefault();
 
     const form = e.target;
@@ -22,37 +22,38 @@ const AddFood = () => {
     const date = form.date.value;
     const notes = form.notes.value;
     const location = form.location.value;
-    const status = form.status.value;
 
-    const newFood = {
+    const updateFood = {
+        
       foodName,
       image,
-      post:{
-        email,name:user?.displayName,photo:user?.photoURL
+      post: {
+        email,
+        name: user?.displayName,
+        photo: user?.photoURL,
       },
       foodQuantity,
       date,
       notes,
       location,
-      status
     };
     // form.reset("")
-    console.log(newFood);
+    console.log(updateFood);
 
     // send data in backend
     try {
-      fetch("http://localhost:3000/food", {
-        method: "POST",
+      fetch(`http://localhost:3000/food/${_id}`, {
+        method: "PUT",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify(newFood),
+        body: JSON.stringify(updateFood),
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.insertedId) {
+          if (data.modifiedCount > 0) {
             Swal.fire({
-              title: "successfully added!",
+              title: "successfully Updated!",
               text: "Do you want to continue",
               icon: "successful",
               confirmButtonText: "Close",
@@ -66,7 +67,7 @@ const AddFood = () => {
         Swal.fire({
           title: "successfully added!",
           text: "Do you want to continue",
-          icon: "Unsuccessful",
+          icon: "successful",
           confirmButtonText: "Close",
         });
       }
@@ -76,17 +77,18 @@ const AddFood = () => {
   return (
     <div className="container mx-auto   bg-orange-100 mt-8 rounded-lg p-4 space-y-6">
       <h1 className="text-5xl text-center font-extrabold text-green-400">
-        Add Foods
+        Update Foods
       </h1>
 
       {/* from */}
-      <form onSubmit={handleAddFood}>
+      <form onSubmit={handleUpdateFood}>
         <div className="flex gap-4">
           <div className="space-y-2 mt-2 md:w-1/2">
             <label className="label">Food Name</label>
             <input
               type="text"
               name="foodName"
+              defaultValue={foodName}
               className="input w-full "
               placeholder="Food Name"
             />
@@ -96,6 +98,7 @@ const AddFood = () => {
             <input
               type="url"
               name="image"
+              defaultValue={image}
               className="input w-full"
               placeholder="Food Image"
             />
@@ -108,30 +111,32 @@ const AddFood = () => {
             <input
               type="email"
               name="email"
+              
               className="input w-full "
               placeholder="Email"
               defaultValue={user?.email}
               disabled={true}
             />
           </div>
-           <div className=" space-y-2 mt-2 md:w-1/2">
+          <div className=" space-y-2 mt-2 md:w-1/2">
             <label className="label">Food Quantity</label>
 
             <input
               type="number"
               name="foodQuantity"
+              defaultValue={foodQuantity}
               className="input w-full "
               placeholder="Food Quantity"
             />
           </div>
         </div>
         <div className="flex gap-4">
-         
           <div className=" space-y-2 mt-2 md:w-1/2">
             <label className="label">Expire Date </label>
             <input
               type="date"
               name="date"
+              defaultValue={date}
               className="input w-full"
               placeholder="Expire Date"
             />
@@ -142,42 +147,32 @@ const AddFood = () => {
             <input
               type="text"
               name="location"
+              defaultValue={location}
               className="input w-full"
               placeholder="Pickup Location"
             />
           </div>
         </div>
         <div className="flex gap-4">
-          <div className=" space-y-2 mt-2 md:w-1/2">
+          <div className=" space-y-2 mt-2 md:w-full">
             <label className="label">Additional Notes</label>
             <input
               type="text"
               name="notes"
+              defaultValue={notes}
               className="input w-full "
               placeholder="Additional Notes"
             />
           </div>
-           <div className=" space-y-2 mt-2 md:w-1/2">
-            <label className="label">Food Status</label>
-            <input
-              type="text"
-              name="status"
-              className="input w-full "
-              placeholder="Food Status"
-              defaultValue={"available"}
-              disabled={true}
-            />
-          </div>
-          
         </div>
         <input
           type="submit"
-          value="Add Food"
-          className="btn bg-green-400 w-full mt-4 font-bold"
+          value="Update Food"
+          className="btn bg-green-400 w-full mt-4 font-bold "
         />
       </form>
     </div>
   );
 };
 
-export default AddFood;
+export default UpdateFood;

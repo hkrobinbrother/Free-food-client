@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { authContext } from "../Firebase/AuthProvider";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 
 const PrivateRoute = ({ children }) => {
   const { user, loding } = useContext(authContext);
+  const location = useLocation();
   if (loding) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -15,8 +16,10 @@ const PrivateRoute = ({ children }) => {
       </div>
     );
   }
+
+
   if (!user) {
-    return <Navigate to="/login"></Navigate>;
+    return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
   }
 
   return children;

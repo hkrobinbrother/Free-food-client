@@ -8,7 +8,7 @@ const BannerCard = ({ food }) => {
   const {user} = useContext(authContext)
   const navigate =  useNavigate()
     
-  const { image, foodName, foodQuantity, date, notes, location } = food
+  const { image, foodName, foodQuantity, date, notes, location ,status} = food
 
   const handleViewAllDetails = ()=>{
     if(!user){
@@ -20,7 +20,7 @@ const BannerCard = ({ food }) => {
 
   
   return (
-    <div className="container mx-auto">
+    <div className="w-10/12 mx-auto">
       <div className="card bg-base-100 w-96 shadow-sm mt-6">
         <figure>
           <img className="object-cover w-[400px] h-[400px]" src={image} />
@@ -48,6 +48,9 @@ const BannerCard = ({ food }) => {
             <h1 className="flex items-center gap-2">
               <MdSpeakerNotes className="text-green-300 items-center" /> {notes}
             </h1>
+          </div>
+           <div className="w-24 h-9 flex justify-center rounded-full  items-center bg-green-300 font-bold">
+            {status}
           </div>
           <div className="">
             

@@ -9,10 +9,11 @@ const handleNavigateSingleCard = ()=>{
   Navigate(`/food/${food._id}`)
 }
  
-const {image,foodName,foodQuantity,date,notes,location} = food
+const {image,foodName,foodQuantity,date,notes,location,
+status} = food
 
   return (
-    <div>
+    <div className="w-10/12 mx-auto items-center">
       <div className="card bg-base-100 w-96 shadow-sm mt-6">
         <figure>
 
@@ -34,6 +35,9 @@ const {image,foodName,foodQuantity,date,notes,location} = food
           </div>
           <div className="items-center font-bold">
             <h1 className="flex items-center gap-2"><MdSpeakerNotes className="text-green-300 items-center" />  {notes}</h1>
+          </div>
+          <div className="w-24 h-9 flex justify-center rounded-full  items-center bg-green-300 font-bold">
+            {status}
           </div>
           <div className="">
             <NavLink

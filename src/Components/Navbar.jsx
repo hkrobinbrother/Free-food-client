@@ -6,7 +6,7 @@ const Navbar = () => {
   const { user,handleLogOut } = useContext(authContext);
   return (
     <div className="min-h-20 bg-blue-200 items-center  ">
-      <div className="container mx-auto ">
+      <div className="w-10/12 mx-auto items-center ">
         <div
           className=" flex justify-between items-center pt-4
         "

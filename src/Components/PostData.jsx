@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+
 import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -85,7 +85,8 @@ const PostData = ({ food, handleDeleted }) => {
         >
           <RiDeleteBin6Fill />
         </button>
-        <Link to={`{}`} className="text-2xl text-blue-400">
+        {/* update button */}
+        <Link to={`/updateFood/${food._id}`} className="text-2xl text-blue-400">
           <FaEdit />
         </Link>
       </td>
