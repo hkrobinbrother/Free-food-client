@@ -11,11 +11,7 @@ import img2 from "../assets/image/silde2.jpg"
 import img3 from ".././assets/image/slide3.jpg"
 
 const Banner = () => {
-//   const Swiper = new Swiper('.swiper', {
-//   autoplay: {
-//     delay: 5000,
-//   },
-// });
+
   return (
     <div className="">
       <Swiper navigation={true}  modules={[Autoplay]}
