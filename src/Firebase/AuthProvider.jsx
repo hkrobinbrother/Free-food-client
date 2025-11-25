@@ -39,16 +39,8 @@ const AuthProvider = ({ routes }) => {
   // google
   const handleGoogleLogin = () => {
     signInWithPopup(auth, googleProvider)
-    .then((res)=>{
-      console.log(res)
-      Swal.fire("Login Successfully")
-    })
-    .catch(err=>{
-      console.log(err)
-      Swal.fire(err?.message)
-        
-    })
-
+    
+    
   };
 
   // authInfo

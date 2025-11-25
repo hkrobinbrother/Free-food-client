@@ -16,7 +16,7 @@ const AddFood = () => {
     const form = e.target;
 
     const foodName = form.foodName.value;
-    const image = form.image.value;
+    const image = form.image.files[0];
     const email = form.email.value;
     const foodQuantity = form.foodQuantity.value;
     const date = form.date.value;
@@ -24,9 +24,11 @@ const AddFood = () => {
     const location = form.location.value;
     const status = form.status.value;
 
+   
+    // form.reset("")
     const newFood = {
       foodName,
-      image,
+      
       post:{
         email,name:user?.displayName,photo:user?.photoURL
       },
@@ -36,21 +38,29 @@ const AddFood = () => {
       location,
       status
     };
-    // form.reset("")
-    console.log(newFood);
 
     // send data in backend
     try {
-      fetch("http://localhost:3000/food", {
+      const data = new FormData()
+      data.append("image", image)
+      fetch("https://api.imgbb.com/1/upload?key=d1dc993083adb08a194107ea342497c7",{
+        method:"POST",
+        body: data
+      }).then(res=>res.json())
+      .then(data =>{
+        console.log(data)
+
+
+        fetch("http://localhost:3000/food", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify(newFood),
+        body: JSON.stringify({...newFood,image:data.data.display_url})
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.insertedId) {
+       .then(res=> res.json())
+       .then(data => {
+        if (data.insertedId) {
             Swal.fire({
               title: "successfully added!",
               text: "Do you want to continue",
@@ -58,8 +68,15 @@ const AddFood = () => {
               confirmButtonText: "Close",
             });
           }
-        });
-      navigate("/manageMyFood");
+       })
+
+      navigate("/manageMyFood")
+
+
+      })
+
+      
+
     } catch (err) {
       console.log(err);
       if (!data.insertedId) {
@@ -94,10 +111,10 @@ const AddFood = () => {
           <div className=" space-y-2 mt-2 md:w-1/2">
             <label className="label">Food Image</label>
             <input
-              type="url"
+              type="file"
               name="image"
               className="input w-full"
-              placeholder="Food Image"
+              
             />
           </div>
         </div>

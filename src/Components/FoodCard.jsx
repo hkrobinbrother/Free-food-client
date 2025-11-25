@@ -20,6 +20,7 @@ status} = food
           <img
           className="object-cover w-[400px] h-[400px]"
             src={image}
+            
            
           />
         </figure>

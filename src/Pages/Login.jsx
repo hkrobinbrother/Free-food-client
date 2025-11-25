@@ -8,7 +8,7 @@ const Login = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const from = location?.state?.from?.pathname || "/"
-  console.log(from)
+  
  
   const { handleGoogleLogin, handleLogin, handleLogOut,user } =
     useContext(authContext);
@@ -26,7 +26,7 @@ const Login = () => {
     .then(res=>{
       console.log(res)
       navigate(from )
-      
+
       Swal.fire("Login Successfully")
     })
     .catch(err=>{
@@ -36,16 +36,12 @@ const Login = () => {
     })
 
   };
-  // const loginPopup = ()=>{
-  //   Swal.fire("login successful");
-  // }
+  
 
   
   return (
     <div>
-      {/* <button onClick={handleGoogleLogin}>Google Login</button>
-    new to the website ? plg Register
-    <NavLink to="/register">Register</NavLink> */}
+     
       <form
         action=""
         onSubmit={handleOnSubmit}
@@ -86,6 +82,7 @@ const Login = () => {
                 <NavLink className="text-blue-600 font-semibold" to="/register">Register</NavLink>
                 
               {error && <p className="text-red-400">{error}</p>}
+              
               </div>
             </div>
           </div>
