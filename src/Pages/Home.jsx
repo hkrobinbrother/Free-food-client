@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import Banner from "../Components/Banner";
 import { NavLink, useLoaderData } from "react-router";
 import BannerCard from "../Components/BannerCard";
