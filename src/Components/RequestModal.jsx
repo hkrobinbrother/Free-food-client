@@ -26,7 +26,7 @@ const RequestModal = ({ open, onClose, food }) => {
       requesterName: user.displayName,
     };
 
-    fetch("http://localhost:3000/requests", {
+    fetch(`${import.meta.env.VITE_API_URL}/requests`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(requestData),

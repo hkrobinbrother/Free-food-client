@@ -15,7 +15,7 @@ const SingleCardDetails = () => {
   const { name, photo } = post;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/food/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/food/${id}`)
       .then((res) => res.json())
       .then((data) => setFood(data));
   }, [id]);

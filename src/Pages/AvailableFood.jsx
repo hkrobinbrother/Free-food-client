@@ -7,7 +7,7 @@ const AvailableFood = () => {
   const [sort, setSort] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/food?sort=${sort}`)
+    fetch(`${import.meta.env.VITE_API_URL}/food?sort=${sort}`)
       .then((res) => res.json())
       .then((data) => setFoods(data));
   }, [sort]);

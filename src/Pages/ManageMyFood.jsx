@@ -9,7 +9,7 @@ const ManageMyFood = () => {
   const [foods, setFoods] = useState([]);
   useEffect(() => {
     if (!user?.email) return;
-    fetch(`http://localhost:3000/food/byEmail/${user.email}`)
+    fetch(`${import.meta.env.VITE_API_URL}/food/byEmail/${user.email}`)
       .then((res) => res.json())
       .then((data) => setFoods(data));
   }, [user]);
@@ -17,7 +17,7 @@ const ManageMyFood = () => {
 
   const handleDeleted = (id) => {
     try {
-      fetch(`http://localhost:3000/food/${id}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/food/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

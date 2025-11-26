@@ -42,7 +42,7 @@ const UpdateFood = () => {
 
     // send data in backend
     try {
-      fetch(`http://localhost:3000/food/${_id}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/food/${_id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

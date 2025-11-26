@@ -23,12 +23,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader:()=> fetch("http://localhost:3000/food")
+        loader:()=> fetch(`${import.meta.env.VITE_API_URL}/food`)
       },
       {
         path: "availableFood",
         element: <AvailableFood />,
-        loader:()=> fetch("http://localhost:3000/food"),
+        loader:()=> fetch(`${import.meta.env.VITE_API_URL}/food`),
        
       },
       {
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
       {
         path:"updateFood/:id",
         element:<UpdateFood/>,
-        loader: ({params})=> fetch(`http://localhost:3000/food/${params.id}`)
+        loader: ({params})=> fetch(`${import.meta.env.VITE_API_URL}/food/${params.id}`)
       },
       {
         path:"requestModal",

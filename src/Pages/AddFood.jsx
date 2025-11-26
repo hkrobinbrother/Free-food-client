@@ -51,7 +51,7 @@ const AddFood = () => {
         console.log(data)
 
 
-        fetch("http://localhost:3000/food", {
+        fetch(`${import.meta.env.VITE_API_URL}/food`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
